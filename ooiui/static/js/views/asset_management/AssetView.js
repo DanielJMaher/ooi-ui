@@ -46,8 +46,8 @@ var ParentAssetModalView = ParentView.extend({
     addMetaData: function() {
         var metaItems = [];
         $.each(this.metaItemList, function(index, item) {
-            metaItems.push('<div class="row meta-input">' +
-                '<label class="col-md-4 meta-key">'+item[1]+'</label>' +
+            metaItems.push('<div class="col-md-6 meta-input">' +
+                '<label class="col-md-5 meta-key">'+item[1]+'</label>' +
                 '<div class="col-md-7">' +
                 '<input id="'+item[0]+'" class="meta-val form-control" type="text" placeholder="Value" for="'+item[1]+'">' +
                 '</div>' +
@@ -111,8 +111,8 @@ var ParentAssetModalView = ParentView.extend({
                     alert('Success!');
                     vent.trigger('asset:changeCollection');
                 },
-                error: function(response) {
-                    alert("Sorry, there was an unexpected error: " + response);
+                error: function(model, error) {
+                    alert("Sorry, there was an unexpected error: " + error.responseJSON.statusCode + " - " + error.responseJSON.message);
                     vent.trigger('asset:changeCollection');
                 }
             });
