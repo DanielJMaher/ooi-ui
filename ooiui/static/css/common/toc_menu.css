@@ -126,7 +126,7 @@ li.array, li.platform, li.assembly, li.instrument {
 
 label.platform > span, label.assembly > span, label.instrument > span {
     display: block;
-    width:350px;
+    width:330px;
 }
 label.platform > font, label.assembly > font, label.instrument > font {
     font-size: 80%;
