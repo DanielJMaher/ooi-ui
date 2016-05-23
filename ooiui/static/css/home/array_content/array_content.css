@@ -16,6 +16,7 @@
 
 .array-content .panel-heading h4 {
     margin: 0;
+    font-size: 16px;
 }
 
 .array-content .panel-body {
@@ -23,8 +24,8 @@
 
 .array-content .panel-body img {
     float: left;
-    padding-bottom: 20px;
-    width: 150px;
+    padding-bottom: 1px;
+    width: 40%;
 }
 
 .array-content .panel-body div {
@@ -32,7 +33,6 @@
 }
 
 .array-content .panel-body p {
-    width: 80%;
     padding: 0 10px 0 10px;
     display: inline-block;
     float: left;
@@ -45,7 +45,7 @@
 }
 
 .array-content .js-platform-table tr td {
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -59,6 +59,6 @@
 .array-content ul li {
     padding-left: 0;
     margin-left: 0;
-    font-size: 12px;
+    font-size: 14px;
     float: left;
 }

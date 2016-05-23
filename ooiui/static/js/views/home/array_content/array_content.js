@@ -1,5 +1,6 @@
 // Parent class for asset views.
 var ParentView = Backbone.View.extend({
+    cameraControls: {originalZoom:1.3,resetPitch:0,resetBearing:0},
     /* Parent class for views.
      *  - initialize()
      *  - render()
@@ -137,15 +138,21 @@ var ArrayContentSummaryItem = ParentView.extend({
         });
     },
     _flyBye: function(event) {
-        map.flyTo({center: [-90, 5], zoom: 1.3, pitch: 0, bearing: 0});
+        map.flyTo({center:[-90, 5],
+            maxBounds: [[-179,-80],[0,80]],
+            zoom: flyFlyContext.cameraControls.originalZoom,
+            speed: 1.,
+            pitch: 0, 
+            bearing: 0});
         map._setArrayView();
         $('.js-array').removeClass('active');
         popup.remove();
     },
     _addPopup: function(loc, name) {
-        popup.setLngLat(loc)
-        .setHTML('<span>' +name+'</span>')
-        .addTo(map);
+
+        //popup.setLngLat(loc)
+        //.setHTML('<span>' +name+'</span>')
+        //.addTo(map);
     },
     _flyFly: _.debounce(function(event) {
         var flyFlyContext = this;
@@ -193,54 +200,119 @@ var ArrayContentSummaryItem = ParentView.extend({
             code = this.model.attributes.array_code,
             name = this.model.attributes.array_name;
 
+        var originalZoom;
         if (code === 'CE') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] - .3 , loc[1] + .75], zoom: 7.5, pitch: 50, bearing: 50});
+                map.setLayoutProperty('rsArray', 'visibility', 'none');
+                map.setLayoutProperty('arrays', 'visibility', 'none');
+                originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
                 flyFlyContext._addPopup(loc, name);
             } else {
-                this._flyBye();
+                console.log('First', map.getZoom());
+                map.flyTo({center:[-90, 5],
+                    maxBounds: [[-179,-80],[0,80]],
+                    zoom: flyFlyContext.cameraControls.originalZoom,
+                    speed: 1.,
+                    pitch: 0, 
+                    bearing: 0});
+                map._setArrayView();
+                $('.js-array').removeClass('active');
+                popup.remove();
+                console.log('2nd', map.getZoom());
             }
         } else if (code === 'RS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] + 1 , loc[1] - 1.5], zoom: 6.25, pitch: 60, bearing: 20});
+                map.setLayoutProperty('ceArray', 'visibility', 'none');
+                map.setLayoutProperty('arrays', 'visibility', 'none');
+                originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
                 flyFlyContext._addPopup(loc, name);
             } else {
-                this._flyBye();
+                console.log('First', map.getZoom());
+                map.flyTo({center:[-90, 5],
+                    maxBounds: [[-179,-80],[0,80]],
+                    zoom: flyFlyContext.cameraControls.originalZoom,
+                    speed: 1.,
+                    pitch: 0, 
+                    bearing: 0});
+                map._setArrayView();
+                $('.js-array').removeClass('active');
+                popup.remove();
+                console.log('2nd', map.getZoom());
             }
         } else if (code === 'CP') {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] + 0, loc[1] - 0.25], zoom: 8.25, pitch: 55, bearing: -10});
+            if ( _compareGeoLoc(map.getCenter(), [-90, 5]) ) {
+                flyFlyContext.cameraControls.originalZoom = map.getZoom();
+                //flyByeContext.cameraControls.originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 6});
                 flyFlyContext._addPopup(loc, name);
             } else {
-                this._flyBye();
+                console.log('First', map.getZoom());
+                map.flyTo({center:[-90, 5],
+                    maxBounds: [[-179,-80],[0,80]],
+                    zoom: flyFlyContext.cameraControls.originalZoom,
+                    speed: 1.,
+                    pitch: 0, 
+                    bearing: 0});
+                map._setArrayView();
+                $('.js-array').removeClass('active');
+                popup.remove();
+                console.log('2nd', map.getZoom());
             }
         } else if (code === 'GS') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] + 0.5, loc[1] - 1], zoom: 6.25, pitch: 60, bearing: 50});
+                originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
                 flyFlyContext._addPopup(loc, name);
             } else {
-                this._flyBye();
+                console.log('First', map.getZoom());
+                map.flyTo({center:[-90, 5],
+                    maxBounds: [[-179,-80],[0,80]],
+                    zoom: flyFlyContext.cameraControls.originalZoom,
+                    speed: 1.,
+                    pitch: 0, 
+                    bearing: 0});
+                map._setArrayView();
+                $('.js-array').removeClass('active');
+                popup.remove();
+                console.log('2nd', map.getZoom());
             }
         } else if (code === 'GI') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 7.75, pitch: 60, bearing: -30});
+                originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
                 flyFlyContext._addPopup(loc, name);
             } else {
-                this._flyBye();
+                console.log('First', map.getZoom());
+                map.flyTo({center:[-90, 5],
+                    maxBounds: [[-179,-80],[0,80]],
+                    zoom: flyFlyContext.cameraControls.originalZoom,
+                    speed: 1.,
+                    pitch: 0, 
+                    bearing: 0});
+                map._setArrayView();
+                $('.js-array').removeClass('active');
+                popup.remove();
+                console.log('2nd', map.getZoom());
             }
         } else if (code === 'GA') {
             if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: [loc[0] + 0, loc[1] -1], zoom: 6.25, pitch: 65, bearing: -30});
+                originalZoom = map.getZoom();
+                map.flyTo({center: loc, zoom: 4});
                 flyFlyContext._addPopup(loc, name);
             } else {
-                this._flyBye();
-            }
-        } else {
-            if ( !_compareGeoLoc(map.getCenter(), loc) ) {
-                map.flyTo({center: loc, zoom: 6, pitch: 60, bearing: -20});
-                flyFlyContext._addPopup(loc, name);
-            } else {
-                this._flyBye();
+                console.log('First', map.getZoom());
+                map.flyTo({center:[-90, 5],
+                    maxBounds: [[-179,-80],[0,80]],
+                    zoom: flyFlyContext.cameraControls.originalZoom,
+                    speed: 1.,
+                    pitch: 0, 
+                    bearing: 0});
+                map._setArrayView();
+                $('.js-array').removeClass('active');
+                popup.remove();
+                console.log('2nd', map.getZoom());
             }
         }
     }, 500, true),

@@ -9,7 +9,7 @@ body, html {
 
 #left {
     overflow-y: scroll;
-    margin-bottom: 20px;
+    margin-bottom: 1px;
     padding-left: 0;
     padding-right: 0;
     border-right: 4px solid #555;
@@ -17,6 +17,7 @@ body, html {
 
 #right {
     padding: 0;
+    height: 33%;
 }
 
 
@@ -34,7 +35,7 @@ body, html {
     background-color: #004773;
     display: inline-block;
     width: 100%;
-    padding: 5px;
+    padding: 1px;
     margin-top: 0;
     color: white;
 
